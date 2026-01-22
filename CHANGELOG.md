@@ -1,6 +1,6 @@
 # 更新日志 / Changelog
 
-## v1.0.3 (2024-12-30)
+## v1.0.4 (2026-1-22)
 
 🌐 **语言选择功能 / Language Selection Feature**
 

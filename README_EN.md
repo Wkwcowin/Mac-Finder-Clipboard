@@ -137,7 +137,7 @@ Mac-Finder-Clipboard/
 ./scripts/build.sh              # Build Debug version
 ./scripts/build.sh --run        # Build and run
 ./scripts/build.sh --release    # Build Release version
-./scripts/build.sh --release 1.0.3  # Release v1.0.3
+./scripts/build.sh --release 1.0.4  # Release v1.0.4
 ./scripts/build.sh --clean      # Clean build files
 ./scripts/build.sh --status     # Show project status
 ./scripts/build.sh --help       # Show help

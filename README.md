@@ -140,7 +140,7 @@ Mac-Finder-Clipboard/
 ./scripts/build.sh              # 构建 Debug 版本
 ./scripts/build.sh --run        # 构建并运行
 ./scripts/build.sh --release    # 构建 Release 版本
-./scripts/build.sh --release 1.0.3  # 发布 v1.0.3
+./scripts/build.sh --release 1.0.4  # 发布 v1.0.4
 ./scripts/build.sh --clean      # 清理构建
 ./scripts/build.sh --status     # 查看项目状态
 ./scripts/build.sh --help       # 显示帮助
@@ -168,7 +168,7 @@ Mac-Finder-Clipboard/
 
 ## 📝 更新日志
 
-### v1.0.3 (2025-12-30)
+### v1.0.4 (2025-12-30)
 - 🌐 添加语言选择功能（中文/English）
 - 🎛️ 设置界面新增语言切换器
 - 💾 语言偏好自动保存并持久化

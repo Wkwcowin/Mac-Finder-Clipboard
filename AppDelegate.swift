@@ -242,7 +242,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         paragraphStyle.alignment = .center
         
         let copyrightText = NSMutableAttributedString(
-            string: "© 2025 ",
+            string: "© 2026 ",
             attributes: [
                 .font: NSFont.systemFont(ofSize: 11),
                 .paragraphStyle: paragraphStyle
