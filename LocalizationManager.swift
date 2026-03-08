@@ -90,7 +90,6 @@ enum LocalizedKey {
     case notificationCutSuccess
     case notificationPasteSuccess
     case notificationCutCancelled
-    case notificationError
     
     func localized(for language: AppLanguage) -> String {
         switch language {
@@ -144,7 +143,6 @@ enum LocalizedKey {
         case .notificationCutSuccess: return "已剪切"
         case .notificationPasteSuccess: return "已移动"
         case .notificationCutCancelled: return "已取消剪切"
-        case .notificationError: return "操作失败"
         }
     }
     
@@ -191,7 +189,6 @@ enum LocalizedKey {
         case .notificationCutSuccess: return "Cut"
         case .notificationPasteSuccess: return "Moved"
         case .notificationCutCancelled: return "Cut Cancelled"
-        case .notificationError: return "Operation Failed"
         }
     }
 }

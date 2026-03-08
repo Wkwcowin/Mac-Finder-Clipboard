@@ -66,8 +66,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         
-        // 定时检查权限状态（降低频率以减少不必要的检查）
-        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+        // 监听系统辅助功能权限变化（使用分布式通知中心）
+        DistributedNotificationCenter.default().addObserver(
+            self,
+            selector: #selector(accessibilityChanged),
+            name: NSNotification.Name("com.apple.accessibility.api"),
+            object: nil
+        )
+        
+        // 定时检查权限状态作为备用（降低频率）
+        Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.updateAccessibilityStatus()
             }
@@ -187,15 +195,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem?.menu = menu
     }
     
-    @objc func toggleFeature(_ sender: NSMenuItem) {
-        let isEnabled = sender.state == .off
-        sender.state = isEnabled ? .on : .off
-        
-        Task { @MainActor in
-            self.finderCutManager?.isEnabled = isEnabled
-        }
-    }
-    
     @objc func openAccessibilitySettings() {
         Task { @MainActor in
             self.finderCutManager?.openSystemPreferences()
@@ -290,5 +289,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func languageChanged() {
         setupMenuBar()
         updateAccessibilityStatus()
+    }
+    
+    @objc func accessibilityChanged() {
+        print("[FinderClip] 收到系统辅助功能权限变化通知")
+        DispatchQueue.main.async { [weak self] in
+            self?.updateAccessibilityStatus()
+        }
     }
 }

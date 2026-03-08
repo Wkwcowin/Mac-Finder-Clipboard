@@ -197,9 +197,12 @@ class SettingsWindowController: NSWindowController {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
         AXIsProcessTrustedWithOptions(options)
         
-        // 启动定时器检查权限状态变化
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+        // 使用更频繁的检查来快速响应权限变化
+        var checkCount = 0
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+            checkCount += 1
             let hasPermission = AXIsProcessTrusted()
+            
             if hasPermission {
                 timer.invalidate()
                 DispatchQueue.main.async {
@@ -207,6 +210,9 @@ class SettingsWindowController: NSWindowController {
                     // 通知其他组件
                     NotificationCenter.default.post(name: .accessibilityStatusChanged, object: true)
                 }
+            } else if checkCount >= 20 {
+                // 10 秒后停止检查
+                timer.invalidate()
             }
         }
     }

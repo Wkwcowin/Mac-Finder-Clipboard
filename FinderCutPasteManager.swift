@@ -25,13 +25,12 @@ class FinderCutPasteManager {
     // 使用 nonisolated(unsafe) 允许在回调中访问
     nonisolated(unsafe) private var isCutMode: Bool = false
     nonisolated(unsafe) private var cutTimestamp: Date?
-    
-    private var cutTimeout: TimeInterval {
-        TimeInterval(SettingsManager.shared.cutTimeout)
-    }
 
     nonisolated(unsafe) private var eventTap: CFMachPort?
     private var runLoopSource: CFRunLoopSource?
+    
+    // Finder Bundle Identifier 常量
+    private nonisolated static let finderBundleID = "com.apple.finder"
     
     init() {
         print("[FinderClip] 管理器已初始化")
@@ -55,6 +54,14 @@ class FinderCutPasteManager {
             name: .accessibilityStatusChanged,
             object: nil
         )
+        
+        // 监听系统辅助功能权限变化
+        DistributedNotificationCenter.default().addObserver(
+            self,
+            selector: #selector(handleSystemAccessibilityChanged),
+            name: NSNotification.Name("com.apple.accessibility.api"),
+            object: nil
+        )
     }
     
     @objc private func handlePermissionChanged(_ notification: Notification) {
@@ -66,6 +73,21 @@ class FinderCutPasteManager {
         if hasPermission && eventTap == nil {
             print("[FinderClip] 权限已授予，立即启动监听...")
             Task { @MainActor in
+                self.startMonitoring()
+            }
+        }
+    }
+    
+    @objc private func handleSystemAccessibilityChanged() {
+        print("[FinderClip] 收到系统辅助功能权限变化通知")
+        guard isEnabled else { return }
+        
+        Task { @MainActor in
+            let hasPermission = AXIsProcessTrusted()
+            print("[FinderClip] 系统权限状态: \(hasPermission)")
+            
+            if hasPermission && self.eventTap == nil {
+                print("[FinderClip] 权限已授予，立即启动监听...")
                 self.startMonitoring()
             }
         }
@@ -175,7 +197,7 @@ class FinderCutPasteManager {
         
         // 检查是否是 Finder（内联检查，避免调用 MainActor 方法）
         guard let frontApp = NSWorkspace.shared.frontmostApplication,
-              frontApp.bundleIdentifier == "com.apple.finder" else {
+              frontApp.bundleIdentifier == Self.finderBundleID else {
             return Unmanaged.passUnretained(event)
         }
         
@@ -214,6 +236,12 @@ class FinderCutPasteManager {
                 isCutMode = false
                 cutTimestamp = nil
                 
+                // 显示成功通知
+                Task { @MainActor in
+                    let loc = LocalizationManager.shared
+                    self.showNotification(loc.localized(.notificationPasteSuccess), subtitle: "")
+                }
+                
                 return nil  // 阻止原始事件
             }
         }
@@ -234,7 +262,8 @@ class FinderCutPasteManager {
         // 检查超时
         if let timestamp = cutTimestamp {
             let timeout = SettingsManager.shared.cutTimeout
-            if Date().timeIntervalSince(timestamp) > TimeInterval(timeout) {
+            // 如果设置为 Int.max（永不超时），则跳过超时检查
+            if timeout < Int.max && Date().timeIntervalSince(timestamp) > TimeInterval(timeout) {
                 isCutMode = false
                 cutTimestamp = nil
                 Task { @MainActor in
@@ -271,6 +300,7 @@ class FinderCutPasteManager {
     private nonisolated func simulateKeyPress(keyCode: CGKeyCode, flags: CGEventFlags) {
         guard let keyDown = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: true),
               let keyUp = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false) else {
+            print("[FinderClip] Failed to create CGEvent for keyCode: \(keyCode)")
             return
         }
         
