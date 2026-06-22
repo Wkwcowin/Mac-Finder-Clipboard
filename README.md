@@ -59,7 +59,7 @@ FinderClip 是一个轻量级的 macOS 菜单栏应用，让你可以在 Finder 
 
 **方式一：使用 Xcode（推荐）**
 ```bash
-git clone https://github.com/Wcowin/Mac-Finder-Clipboard.git
+git clone https://github.com/Wkwcowin/Mac-Finder-Clipboard.git
 cd Mac-Finder-Clipboard
 open FinderClip.xcodeproj
 # 在 Xcode 中按 ⌘R 运行
@@ -67,7 +67,7 @@ open FinderClip.xcodeproj
 
 **方式二：命令行构建**
 ```bash
-git clone https://github.com/Wcowin/Mac-Finder-Clipboard.git
+git clone https://github.com/Wkwcowin/Mac-Finder-Clipboard.git
 cd Mac-Finder-Clipboard
 
 # 构建并运行
@@ -157,7 +157,7 @@ Mac-Finder-Clipboard/
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 打开一个 Pull Request
 
-也欢迎提交 [Issue](https://github.com/Wcowin/Mac-Finder-Clipboard/issues) 报告 Bug 或建议新功能！
+也欢迎提交 [Issue](https://github.com/Wkwcowin/Mac-Finder-Clipboard/issues) 报告 Bug 或建议新功能！
 
 ## 📄 许可证
 
