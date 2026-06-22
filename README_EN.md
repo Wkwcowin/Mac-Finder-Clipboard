@@ -55,7 +55,7 @@ FinderClip is a lightweight macOS menu bar app that brings the familiar **⌘X**
 
 **Option 1: Using Xcode (Recommended)**
 ```bash
-git clone https://github.com/Wcowin/Mac-Finder-Clipboard.git
+git clone https://github.com/Wkwcowin/Mac-Finder-Clipboard.git
 cd Mac-Finder-Clipboard
 open FinderClip.xcodeproj
 # Press ⌘R in Xcode to run
@@ -63,7 +63,7 @@ open FinderClip.xcodeproj
 
 **Option 2: Command Line**
 ```bash
-git clone https://github.com/Wcowin/Mac-Finder-Clipboard.git
+git clone https://github.com/Wkwcowin/Mac-Finder-Clipboard.git
 cd Mac-Finder-Clipboard
 
 # Build and run
@@ -153,7 +153,7 @@ Contributions are welcome!
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-Feel free to open an [Issue](https://github.com/Wcowin/Mac-Finder-Clipboard/issues) to report bugs or suggest new features!
+Feel free to open an [Issue](https://github.com/Wkwcowin/Mac-Finder-Clipboard/issues) to report bugs or suggest new features!
 
 ## 📄 License
 
@@ -161,7 +161,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-**Wcowin** - [GitHub](https://github.com/Wcowin)
+**Wkwcowin** - [GitHub](https://github.com/Wkwcowin)
 
 ## ⭐ Star History
 
@@ -170,5 +170,5 @@ If this project helps you, please give it a Star ⭐
 ---
 
 <div align="center">
-  Made with ❤️ by Wcowin
+  Made with ❤️ by Wkwcowin
 </div>

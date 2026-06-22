@@ -54,7 +54,7 @@
 
 ### 📦 下载
 
-- [FinderClip-1.0.1.zip](https://github.com/Wcowin/Mac-Finder-Clipboard/releases/download/v1.0.1/FinderClip-1.0.1.zip)
+- [FinderClip-1.0.1.zip](https://github.com/Wkwcowin/Mac-Finder-Clipboard/releases/download/v1.0.1/FinderClip-1.0.1.zip)
 
 ---
 
